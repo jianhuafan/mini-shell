@@ -181,7 +181,9 @@ static void spawn(command_t command, int background){
 		int status;
 		pid_t w_pid = wait(&status);
 		while (w_pid != -1 ) {
-			if (WIFEXITED(status)) {
+			if (WIFEXITED(status) && w_pid == pid) {
+				//do nothing
+			} else if (WIFEXITED(status)) {
 				printf("process %d terminated with status %d\n", w_pid, WEXITSTATUS(status));
 			} else if (WIFSIGNALED(status)) {
 				printf("process %d terminated with signal %d\n", w_pid, WTERMSIG(status));
