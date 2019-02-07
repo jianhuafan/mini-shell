@@ -168,11 +168,11 @@ static void spawn(command_t command, int background){
 	int pid = fork();
 
 	if (pid == 0) {
-		redir(command);
-		execute(command);
 		if (background) {
 			interrupts_disable();
 		}
+		redir(command);
+		execute(command);
 	} else {
 		if (background) {
 			printf("process %d running in background\n", pid);
